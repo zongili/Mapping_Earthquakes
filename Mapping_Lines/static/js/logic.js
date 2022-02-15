@@ -46,7 +46,7 @@ let line = [
     opacity: 0.5,
     weigth: 4,
     color: "blue",
-    dashArray:'2, 5'
+    dashArray:[2, 5]
   }).addTo(map);
 
 // // To change the map's style, change the map id using the list of Mapbox ids below:
