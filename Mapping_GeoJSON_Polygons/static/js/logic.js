@@ -19,38 +19,34 @@ attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap
 
 // Create a base layer that holds both maps.
 let baseMaps = {
-  Streets: streets,
+  'Streets': streets,
   'Satellite Streets' : satelliteStreets
 };
 // Create the map object with center, zoom level and default layer.
 let map = L.map('map', {
   center: [43.7, -79.3],
   zoom: 11,
-  layers: [satelliteStreets]
+  layers: [streets]
 })
-
 // Pass our map layers into our layers control and add the layers control to the map.
 L.control.layers(baseMaps).addTo(map);
-
-// Accessing the airport GeoJSON URL
-// let airportData = "https://raw.githubusercontent.com/zongili/Mapping_Earthquakes/Mapping_GeoJSON_Points/majorAirports.json";
-let torontoHoods  = "https://raw.githubusercontent.com/zongili/Mapping_Earthquakes/Mapping_GeoJSON_Linestrings/torontoRoutes.json";
-// Grabbing our GeoJSON data and adding popup marker+info
-// Grabbing our GeoJSON data.
-d3.json(torontoHoods).then(function(data) {
-  console.log(data);
-
-  // Create a style for the lines.
+// Create a style for the lines.
 let myStyle = {
-  color: blue,
+  color: 'green',
   weight: 1
 }
+// Accessing the toronto neighbourhood GeoJSON URL
+let torontoHoods  = "https://raw.githubusercontent.com/zongili/Mapping_Earthquakes/Mapping_GeoJSON_Polygons/torontoNeighborhoods.json";
+// Grabbing our GeoJSON data and adding popup marker+info
+d3.json(torontoHoods).then(function(data) {
+  console.log(data);
+//   // Creating a GeoJSON layer with the retrieved data.
+//   L.geoJSON(data).addTo(map);
+// });
 
-// Creating a GeoJSON layer with the retrieved data.
   L.geoJSON(data, {
     style: myStyle,
     onEachFeature: function(feature, layer) {
-      
     layer.bindPopup("<h3>" + feature.properties.AREA_NAME + "</h3>" );     
     }
   }).addTo(map);
